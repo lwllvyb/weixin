@@ -1,12 +1,13 @@
 #-*-coding:utf-8 -*-
 import werobot
+import process_txt
 
 robot = werobot.WeRoBot(token='weixinliwenlong')
 
 # @robot.text 修饰的 Handler 只处理文本消息
 @robot.text
 def echo(message):
-    return message.content
+    return process_txt.txt_process(message.content)
 
 # @robot.image 修饰的 Handler 只处理图片消息
 @robot.image

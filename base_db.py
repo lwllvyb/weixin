@@ -96,9 +96,7 @@ def get_time():
     return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
 if __name__ == '__main__':
-    PROJECTS = {
-        "001": "维权",
-    }
+    
     db='db/test.db'
     d = DB(db)
 
