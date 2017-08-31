@@ -31,6 +31,4 @@ class Projects():
     def add_projects(cls, project):
         cls.PROJECTS.update(project)
 
-if __name__ == '__main__':
-    Parser.load()
-    print (Projects.PROJECTS)
+Parser.load()
