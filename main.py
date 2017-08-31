@@ -1,4 +1,4 @@
--*-coding:utf-8 -*-
+#-*-coding:utf-8 -*-
 import werobot
 
 robot = werobot.WeRoBot(token='weixinliwenlong')
