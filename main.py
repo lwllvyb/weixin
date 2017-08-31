@@ -15,6 +15,10 @@ def echo(message):
 def img(message):
     return message.img
 
+@robot.error_page
+def make_error_page(url):
+    return "<h1>喵喵喵 %s 不是给麻瓜访问的快走开</h1>" % url
+
 #监听signal
 ExceptSignalHandle.handle_signal()
 
