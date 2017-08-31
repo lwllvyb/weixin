@@ -16,7 +16,7 @@ class DB():
     def create_table(self, table_name, field_type ):
         try:
             self._cursor.execute('create table {0} ({1});'.format(table_name, field_type))
-        except sqlite3.OperationalError, e:
+        except sqlite3.OperationalError as e:
             print("{0}".format(e))
 
     def __del__(self):
@@ -32,8 +32,8 @@ class DB():
     def _select(self, sql):
         try:
             result = self._cursor.execute(sql)
-        except sqlite3.Error, e:
-            print e
+        except sqlite3.Error as e:
+            print(e)
             result = False
         return result
 
@@ -58,14 +58,14 @@ class DB():
         try:
             self._cursor.execute(sql)
             self._conn.commit() 
-        except sqlite3.IntegrityError, e:
+        except sqlite3.IntegrityError as e:
             print(e)
-            return 0
+            return -1 
         return self._cursor.lastrowid #返回最后的id
 
     def update(self, table_name, tdict, condition=''):
         if not condition:
-            print "must have id"
+            print ("must have id")
             exit()
         else:
             condition = 'where ' + condition
@@ -90,22 +90,51 @@ class DB():
 
     def _affected_num(self):
         return self._cursor.rowcount
+
+def get_time():
+    import time
+    return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+
 if __name__ == '__main__':
+    PROJECTS = {
+        "001": "维权",
+    }
     db='db/test.db'
     d = DB(db)
 
-    field_type="id integer  primary key AUTOINCREMENT, name varchar(40) not null, floor varchar(20) not null UNIQUE"
+    field_type="id integer  primary key AUTOINCREMENT,\
+                project varchar(128) not null, \
+                name varchar(40) not null,\
+                floor varchar(20) not null,\
+                time varchar(40) not null,\
+                UNIQUE (project, name, floor)"
 
     table_name='user'
     d.create_table(table_name, field_type)
     tdict = {
+        "project": PROJECTS["001"],
         "name":"lilei",
-        "floor": "2012"
+        "floor": "2012",
+        "time":get_time()
+    }
+    tdict1 = {
+        "project": PROJECTS["001"],
+        "name":"lilei",
+        "floor": "2012",
+        "time":get_time()
+    }
+    tdict2 = {
+        "project": PROJECTS["001"],
+        "name":"lilei",
+        "floor": "2013",
+        "time":get_time()
     }
     print(d.insert(table_name, tdict))
-    print(d.query(table_name, 'name', 'floor=2012'))
-    print(d.query(table_name, '*', 'floor=2012'))
-    d.delete(table_name, "floor=2012")
-    print(d.query(table_name, '*', 'floor=2012'))
+    print(d.insert(table_name, tdict1))
+    print(d.insert(table_name, tdict2))
+    # print(d.query(table_name, 'project', 'floor=2012'))
+    print(d.query(table_name, '*'))
+    # d.delete(table_name, "floor=2012")
+    # print(d.query(table_name, '*', 'floor=2012'))
 
     # print(d.query())
