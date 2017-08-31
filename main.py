@@ -1,6 +1,7 @@
 #-*-coding:utf-8 -*-
 import werobot
 import process_txt
+from config import ExceptSignalHandle
 
 robot = werobot.WeRoBot(token='weixinliwenlong')
 
@@ -13,6 +14,9 @@ def echo(message):
 @robot.image
 def img(message):
     return message.img
+
+#监听signal
+ExceptSignalHandle.handle_signal()
 
 # 让服务器监听在 0.0.0.0:80
 robot.config['HOST'] = '0.0.0.0'

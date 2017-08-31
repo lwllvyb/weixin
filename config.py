@@ -66,9 +66,9 @@ class ExceptSignalHandle():
         for except_handle in cls.signal_handlers:
             except_handle["handler"](except_handle["signal"], None)
 
-ExceptSignalHandle.handle_signal()
+# ExceptSignalHandle.handle_signal()
 
 if __name__ == "__main__":
     import time
     while True:
-        time.sleep()
+        time.sleep(3)
