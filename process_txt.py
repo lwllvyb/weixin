@@ -12,4 +12,7 @@ def txt_process(content):
 
 
 def help():
-    return "{0}".format(Projects.PROJECTS)
+    ret = ''
+    for id, project in Projects.PROJECTS.items():
+        ret += "{0}\t{1}\r\n".format(id, project)
+    return "{0}".format(ret)
