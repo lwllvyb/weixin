@@ -12,4 +12,4 @@ def txt_process(content):
 
 
 def help():
-    print(Projects.PROJECTS)
+    return "{0}".format(Projects.PROJECTS)
